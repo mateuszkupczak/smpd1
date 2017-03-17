@@ -1,0 +1,113 @@
+<environment: namespace:MCDA>
+> 
+> # the numeric data table
+> numericDataTable <- rbind(
++     c(276, 130, 3399),
++     c(262, 98, 2099),
++     c(196, 75, 899),
++     c(192, 98, 1399),
++     c(206, 98, 1799),
++     c(228, 111, 1199),
++     c(188, 98, 1699),
++     c(279, 87, 1999),
++     c(206, 98, 2199),
++     c(246, 98, 2099),
++     c(100, 56, 890),
++     c(210, 98, 1899),
++     c(212, 98, 1799),
++     c(361, 211, 3449),
++     c(166, 64, 1198)
++ )
+> rownames(numericDataTable) <- c(
++     "Samsung Chef Collection RB41J7839S4",
++     "Samsung RB37J5925SS",
++     "Indesit LR6 S1 S",
++     "Samsung RB29FSRNDSA",
++     "Samsung RB31FERNCSA",
++     "Indesit LR8 S2 X B",
++     "Samsung RB29FERNCSS",
++     "Bosch KGN39KL35",
++     "Samsung RB31FERNBSS",
++     "Samsung RB34K6032SS",
++     "Amica FK205.4",
++     "Samsung RB31FDRNDSA",
++     "Samsung RB31FERNDBC",
++     "Samsung RS7528THCSP",
++     "Amica FK261.3XAA")
+> colnames(numericDataTable) <- c(
++     "CoolerStorageVolume",
++     "FreezerStorageVolume",
++     "Price")
+> 
+> # ranks of the alternatives
+> alternativesRanks <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+> names(alternativesRanks) <- row.names(numericDataTable)
+> 
+> # criteria to minimise or maximize
+> criteriaMinMax <- c("max","min","min")
+> names(criteriaMinMax) <- colnames(numericDataTable)
+> x <- additiveValueFunctionElicitation(numericDataTable,
++                                       criteriaMinMax, epsilon,
++                                       alternativesRanks = alternativesRanks)
+> 
+> print(x)
+$optimum
+[1] 0.28
+
+$valueFunctions
+$valueFunctions$CoolerStorageVolume
+  [,1] [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]  [,10]  [,11]  [,12]  [,13]   [,14]
+x  100  166 188.00 192.00 196.00 206.00 210.00 212.00 228.00 246.00 262.00 276.00 279.00 361.000
+y    0    0   0.08   0.09   0.09   0.09   0.09   0.09   0.09   0.12   0.14   0.14   0.14   0.485
+
+$valueFunctions$FreezerStorageVolume
+  [,1]    [,2]    [,3]   [,4]   [,5]   [,6]   [,7]   [,8]
+x  211 130.000 111.000 98.000 87.000 75.000 64.000 56.000
+y    0   0.405   0.405  0.405  0.405  0.405  0.405  0.415
+
+$valueFunctions$Price
+  [,1] [,2] [,3] [,4] [,5] [,6] [,7]    [,8]    [,9]   [,10]   [,11] [,12] [,13]
+x 3449 3399 2199 2099 1999 1899 1799 1699.00 1399.00 1199.00 1198.00 899.0 890.0
+y    0    0    0    0    0    0    0    0.07    0.07    0.07    0.07   0.1   0.1
+
+
+$overallValues
+Samsung Chef Collection RB41J7839S4                 Samsung RB37J5925SS                    Indesit LR6 S1 S 
+                              0.545                               0.545                               0.595 
+                Samsung RB29FSRNDSA                 Samsung RB31FERNCSA                  Indesit LR8 S2 X B 
+                              0.565                               0.495                               0.565 
+                Samsung RB29FERNCSS                     Bosch KGN39KL35                 Samsung RB31FERNBSS 
+                              0.555                               0.545                               0.495 
+                Samsung RB34K6032SS                       Amica FK205.4                 Samsung RB31FDRNDSA 
+                              0.525                               0.515                               0.495 
+                Samsung RB31FERNDBC                 Samsung RS7528THCSP                    Amica FK261.3XAA 
+                              0.495                               0.485                               0.475 
+
+$ranks
+Samsung Chef Collection RB41J7839S4                 Samsung RB37J5925SS                    Indesit LR6 S1 S 
+                                  5                                   5                                   1 
+                Samsung RB29FSRNDSA                 Samsung RB31FERNCSA                  Indesit LR8 S2 X B 
+                                  2                                  10                                   2 
+                Samsung RB29FERNCSS                     Bosch KGN39KL35                 Samsung RB31FERNBSS 
+                                  4                                   5                                  10 
+                Samsung RB34K6032SS                       Amica FK205.4                 Samsung RB31FDRNDSA 
+                                  8                                   9                                  10 
+                Samsung RB31FERNDBC                 Samsung RS7528THCSP                    Amica FK261.3XAA 
+                                 10                                  14                                  15 
+
+$errors
+Samsung Chef Collection RB41J7839S4                 Samsung RB37J5925SS                    Indesit LR6 S1 S 
+                               0.07                                0.06                                0.00 
+                Samsung RB29FSRNDSA                 Samsung RB31FERNCSA                  Indesit LR8 S2 X B 
+                               0.02                                0.08                                0.00 
+                Samsung RB29FERNCSS                     Bosch KGN39KL35                 Samsung RB31FERNBSS 
+                               0.00                                0.00                                0.04 
+                Samsung RB34K6032SS                       Amica FK205.4                 Samsung RB31FDRNDSA 
+                               0.00                                0.00                                0.01 
+                Samsung RB31FERNDBC                 Samsung RS7528THCSP                    Amica FK261.3XAA 
+                               0.00                                0.00                                0.00 
+
+$Kendall
+[1] 0.650814
+
+> 
